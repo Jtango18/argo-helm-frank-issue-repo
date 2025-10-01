@@ -3,6 +3,9 @@ kind: Application
 metadata:
   name: helm-frank-repro
   namespace: argocd
+  annotations:
+    argo.octopus.com/project: "frank-helm-repro"
+    argo.octopus.com/environment: "dev"
 spec:
   project: default
   sources:
