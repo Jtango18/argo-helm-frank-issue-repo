@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: helm-frank-repro
+  namespace: argocd
+spec:
+  project: default
+  sources:
+    - repoURL: https://github.com/Jtango18/argo-helm-frank-issue-repo
+      targetRevision: main
+      path: "./helm-app"
+      helm:
+        valuesFiles:
+          - values.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: helm-frank-repro-app
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
